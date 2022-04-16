@@ -1,14 +1,16 @@
-## HUFS_CAPSTONE [(1.0.0 version)]
+## HUFS_CAPSTONE_For the self-employed and small business owners [(1.0.0 version)]
 
 ![Storyboard] Figma: the collaborative interface design tool[https://www.figma.com]
+
 ![Usedphoto] pixabay [https://pixabay.com/]
-| [HUFS_CAPSTONE_FOR_FREE] | [HUFS_CAPSTONE_FOR_Premium_member]
-| ---------------- | :------------------------------ |
-| **7** Demo pages | **42+** premium pages |
-| - | ✓ 검색 기능 |
-| - | ✓ 카테고리 검색 기능 |
-| - | ✓ 상세페이지 기능 |
-| - | ✓ 영업 매장 관리 기능 |
+
+| [HUFS_CAPSTONE_FOR_FREE] | [HUFS_CAPSTONE_FOR_Premium_member] |
+| ------------------------ | :--------------------------------- |
+| **7** Demo pages         | **42+** premium pages              |
+| -                        | ✓ 검색 기능                        |
+| -                        | ✓ 카테고리 검색 기능               |
+| -                        | ✓ 상세페이지 기능                  |
+| -                        | ✓ 영업 매장 관리 기능              |
 
 ## Page demo
 
