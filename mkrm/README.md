@@ -2,7 +2,7 @@
 
 ![Storyboard] Figma: the collaborative interface design tool[https://www.figma.com]
 ![Usedphoto] pixabay [https://pixabay.com/]
-| |
+| [HUFS_CAPSTONE_FOR_FREE] | [HUFS_CAPSTONE_FOR_Premium_member]
 | ---------------- | :------------------------------ |
 | **7** Demo pages | **42+** demo pages |
 | - | ✓ Multi-language |
