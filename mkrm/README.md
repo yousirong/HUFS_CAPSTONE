@@ -1,6 +1,6 @@
 ## HUFS_CAPSTONE_For the self-employed and small business owners [(1.0.0 version)]
 
-![Storyboard] Figma: the collaborative interface design tool[https://www.figma.com]
+![Storyboard] Figma: the collaborative interface design tool [https://www.figma.com]
 
 ![Usedphoto] pixabay [https://pixabay.com/]
 
@@ -26,7 +26,7 @@
 
 node.modules, yarn.lock지운채로 업로드 예정
 
-- Recommended `node js 14.x` and `npm 6+`
+- Recommended `node js ^16.14.x` and `npm ^8.5.x` and `yarn ^1.22.18`
 - Install dependencies: `npm install` or `yarn install`
 - Start the project: `npm run start` or `yarn start`
 
@@ -34,6 +34,7 @@ node.modules, yarn.lock지운채로 업로드 예정
 
 Distributed under the MIT License. [https://github.com/yousirong](https://github.com/yousirong) for more information.
 
-## Contact us
+## Buy Premium Membership - Contact us
 
+If you would like to purchase a premium membership, contact us
 Email: diziyong1523@gmail.com
