@@ -4,11 +4,11 @@
 ![Usedphoto] pixabay [https://pixabay.com/]
 | [HUFS_CAPSTONE_FOR_FREE] | [HUFS_CAPSTONE_FOR_Premium_member]
 | ---------------- | :------------------------------ |
-| **7** Demo pages | **42+** demo pages |
-| - | ✓ Multi-language |
-| - | ✓ [More components] |
-| - | ✓ TypeScript version |
-| - | ✓ Design files (Figma & Sketch) |
+| **7** Demo pages | **42+** premium pages |
+| - | ✓ 검색 기능 |
+| - | ✓ 카테고리 검색 기능 |
+| - | ✓ 상세페이지 기능 |
+| - | ✓ 영업 매장 관리 기능 |
 
 ## Page demo
 
