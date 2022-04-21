@@ -18,6 +18,8 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
+// import DeleteIcon from '@mui/icons-material/Delete';
+import { Icon } from '@iconify/react';
 // components
 import Page from '../components/Page';
 import Label from '../components/Label';
@@ -31,11 +33,11 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'company', label: '매장이름', alignRight: false },
+  { id: 'name', label: '대표자이름', alignRight: false },
+  { id: 'repnum', label: '대표번호', alignRight: false },
+  { id: 'isnew', label: '신규', alignRight: false },
+  { id: 'status', label: '진행상황', alignRight: false },
   { id: '' },
 ];
 
@@ -133,15 +135,22 @@ export default function User() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="User">
+    <Page title="My Shop">
       <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={7}>
           <Typography variant="h4" gutterBottom>
-            User
+            My Shop
           </Typography>
-          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+              New Shop
+            </Button>
+            <Button variant="contained">삭제</Button>
+            <Button variant="contained">확인</Button>
+            <Button variant="contained" color="success">
+              Excel 다운로드
+            </Button>
+          </Stack>
         </Stack>
 
         <Card>
@@ -161,7 +170,7 @@ export default function User() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { company, id, name, repnum, isnew, status, avatarUrl } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -185,8 +194,11 @@ export default function User() {
                           </Stack>
                         </TableCell>
                         <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{repnum}</TableCell>
+                        <TableCell align="left">
+                          {isnew ? <Icon icon="bi:check" width="25" height="25" /> : ''}
+                        </TableCell>
+
                         <TableCell align="left">
                           <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}

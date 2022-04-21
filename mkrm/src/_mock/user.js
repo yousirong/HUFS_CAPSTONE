@@ -3,15 +3,16 @@ import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
-const users = [...Array(24)].map((_, index) => ({
-  id: faker.datatype.uuid(),
-  avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
-  name: faker.name.findName(),
+const users = [...Array(24)].map(() => ({
   company: faker.company.companyName(),
-  isVerified: faker.datatype.boolean(),
-  status: sample(['active', 'banned']),
+  name: faker.company.companyName(),
+  id: faker.datatype.uuid(),
+  avartarUrl: faker.image.avatar(),
+  isnew: faker.datatype.boolean(), // 신규 인지 아닌지
+  status: sample(['not yet', 'Proceeding', 'complete', 'failure']),
+  repnum: faker.phone.phoneNumber('02-####-####'),
   role: sample([
-    'Leader',
+    '리더',
     'Hr Manager',
     'UI Designer',
     'UX Designer',
