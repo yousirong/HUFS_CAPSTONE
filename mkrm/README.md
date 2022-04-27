@@ -37,4 +37,4 @@ Distributed under the MIT License. [https://github.com/yousirong](https://github
 ## Buy Premium Membership - Contact us
 
 If you would like to purchase a premium membership, contact us
-Email: diziyong1523@gmail.com
+Email: diziyong@hufs.ac.kr
