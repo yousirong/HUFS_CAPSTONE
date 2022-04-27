@@ -10,18 +10,13 @@ import MenuPopover from '../../components/MenuPopover';
 const LANGS = [
   {
     value: 'en',
-    label: 'English',
-    icon: '/static/icons/ic_flag_en.svg',
+    label: 'United States',
+    icon: '/static/icons/Flag_of_the_United_States.svg',
   },
   {
-    value: 'de',
-    label: 'German',
-    icon: '/static/icons/ic_flag_de.svg',
-  },
-  {
-    value: 'fr',
-    label: 'French',
-    icon: '/static/icons/ic_flag_fr.svg',
+    value: 'kr',
+    label: 'South Korea',
+    icon: '/static/icons/Flag_of_South_Korea.svg',
   },
 ];
 

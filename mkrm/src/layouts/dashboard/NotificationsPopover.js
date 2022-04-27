@@ -98,7 +98,7 @@ export default function NotificationsPopover() {
       notifications.map((notification) => ({
         ...notification,
         isUnRead: false,
-      }))
+      })),
     );
   };
 

@@ -13,7 +13,7 @@ const navConfig = [
   },
   {
     title: 'My Shop',
-    path: '/dashboard/user',
+    path: '/dashboard/User',
     icon: getIcon('eva:people-fill'),
   },
   {

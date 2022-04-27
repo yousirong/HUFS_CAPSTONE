@@ -24,7 +24,7 @@ export default function ThemeProvider({ children }) {
       shadows,
       customShadows,
     }),
-    []
+    [],
   );
 
   const theme = createTheme(themeOptions);

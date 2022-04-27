@@ -31,13 +31,18 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 import USERLIST from '../_mock/user';
 
 // ----------------------------------------------------------------------
-
+// 순서대로 myshop 열 데이터
+// 매장이름-> 대표자이름 -> 대표번호 -> 업종 -> 평점 -> 리뷰  ->신규 -> 진행상황
 const TABLE_HEAD = [
   { id: 'company', label: '매장이름', alignRight: false },
   { id: 'name', label: '대표자이름', alignRight: false },
   { id: 'repnum', label: '대표번호', alignRight: false },
+  { id: 'sector', label: '업종', alignRight: false },
+  { id: 'rating', label: '평점', alignRight: false },
+  { id: 'review', label: '리뷰', alignRight: false },
   { id: 'isnew', label: '신규', alignRight: false },
   { id: 'status', label: '진행상황', alignRight: false },
+
   { id: '' },
 ];
 
@@ -170,7 +175,7 @@ export default function User() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { company, id, name, repnum, isnew, status, avatarUrl } = row;
+                    const { company, id, name, repnum, sector, rating, review, isnew, status, avatarUrl } = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -195,6 +200,9 @@ export default function User() {
                         </TableCell>
                         <TableCell align="left">{company}</TableCell>
                         <TableCell align="left">{repnum}</TableCell>
+                        <TableCell align="left">{sector}</TableCell>
+                        <TableCell align="left">{rating}</TableCell>
+                        <TableCell align="left">{review}</TableCell>
                         <TableCell align="left">
                           {isnew ? <Icon icon="bi:check" width="25" height="25" /> : ''}
                         </TableCell>
