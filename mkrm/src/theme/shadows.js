@@ -1,7 +1,7 @@
 // material
 import { alpha } from '@mui/material/styles';
 import palette from './palette';
-
+// 모든 pages에서 사용되는 모든 shadow 기능들과 관련된 출력되는 부분
 // ----------------------------------------------------------------------
 
 const LIGHT_MODE = palette.grey[500];

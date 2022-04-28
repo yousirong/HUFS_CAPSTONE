@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 // @mui
 import { Box } from '@mui/material';
-
+// Iconify 색 변환 함수 적용및 아이콘 반응
 // ----------------------------------------------------------------------
 
 Iconify.propTypes = {

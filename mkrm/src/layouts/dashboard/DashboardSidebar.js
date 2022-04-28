@@ -33,7 +33,7 @@ const AccountStyle = styled('div')(({ theme }) => ({
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: theme.palette.grey[500_12],
 }));
-
+// dashboard함수에 sidebar 출력 함수
 // ----------------------------------------------------------------------
 
 DashboardSidebar.propTypes = {

@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles';
-
+// override 될경우 현재 페이지 변환 되는 색감 함수
 // ----------------------------------------------------------------------
 
 export default function Backdrop(theme) {
@@ -14,13 +14,13 @@ export default function Backdrop(theme) {
             `rgb(22,28,36)`,
             `-moz-linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`,
             `-webkit-linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`,
-            `linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`
+            `linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`,
           ],
           '&.MuiBackdrop-invisible': {
-            background: 'transparent'
-          }
-        }
-      }
-    }
+            background: 'transparent',
+          },
+        },
+      },
+    },
   };
 }

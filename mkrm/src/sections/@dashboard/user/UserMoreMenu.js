@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
 // component
 import Iconify from '../../../components/Iconify';
-
+// User_myshop에서 진행상황을 변경하는 edit 하나씩 매장 delete하는 추가 메뉴 부분
 // ----------------------------------------------------------------------
 
 export default function UserMoreMenu() {

@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
-
+// logo 넣을 경우 반응들 -> 과거에 프로젝트 했던거 넣어둠
 // ----------------------------------------------------------------------
 
 Logo.propTypes = {

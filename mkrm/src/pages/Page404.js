@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import { Button, Typography, Container, Box } from '@mui/material';
 // components
 import Page from '../components/Page';
-
+// 404pages 출력 함수
 // ----------------------------------------------------------------------
 
 const ContentStyle = styled('div')(({ theme }) => ({

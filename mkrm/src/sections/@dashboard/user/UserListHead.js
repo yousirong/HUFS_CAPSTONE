@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // material
 import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
-
+// User myshop에서 열데이터 부분 화면 차지 비율 및 출력 함수
 // ----------------------------------------------------------------------
 
 const visuallyHidden = {

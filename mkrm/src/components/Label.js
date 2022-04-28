@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
-
+// color 변환 반응 label
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('span')(({ theme, ownerState }) => {

@@ -8,7 +8,7 @@ import palette from './palette';
 import typography from './typography';
 import componentsOverride from './overrides';
 import shadows, { customShadows } from './shadows';
-
+// theme 항목에서 override 관련 부모 상속 기능
 // ----------------------------------------------------------------------
 
 ThemeProvider.propTypes = {

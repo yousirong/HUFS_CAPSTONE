@@ -30,6 +30,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 // mock
 import USERLIST from '../_mock/user';
 
+// user_myshop page 출력함수
 // ----------------------------------------------------------------------
 // 순서대로 myshop 열 데이터
 // 매장이름-> 대표자이름 -> 대표번호 -> 업종 -> 평점 -> 리뷰  ->신규 -> 진행상황

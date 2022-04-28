@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-
+// svg 출력관련 함수
 // ----------------------------------------------------------------------
 
 SvgIconStyle.propTypes = {

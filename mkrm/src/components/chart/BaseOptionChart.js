@@ -1,7 +1,7 @@
 // material
 import { alpha, useTheme } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
-
+// 전에 프로젝트에서 연습했던거 수정해서 넣어놓기만 했음. dashboard에 출력됨
 // ----------------------------------------------------------------------
 
 export function BaseOptionChartStyle() {

@@ -1,6 +1,6 @@
 // component
 import Iconify from '../../components/Iconify';
-
+// page 별로 출력될 title과 sidebar 글씨 옆에 출력될 아이콘 출력 함수
 // ----------------------------------------------------------------------
 
 const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;

@@ -1,6 +1,6 @@
 import { replace } from 'lodash';
 import numeral from 'numeral';
-
+// 모든 페이지에서 출력되는 숫자 관련된 default출력 함수
 // ----------------------------------------------------------------------
 
 export function fCurrency(number) {

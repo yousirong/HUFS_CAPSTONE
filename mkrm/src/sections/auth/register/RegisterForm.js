@@ -11,6 +11,7 @@ import { Input, InputLabel, Box, FormControl, Stack, TextField, IconButton, Inpu
 import { LoadingButton } from '@mui/lab';
 // component
 import Iconify from '../../../components/Iconify';
+// register page 관련 form 출력함수
 
 // ----------------------------s------------------------------------------
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {

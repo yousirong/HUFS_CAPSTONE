@@ -1,7 +1,7 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+// hooks 추가 부분 간단한 것들만 추가해두었음
 // ----------------------------------------------------------------------
 
 export default function useResponsive(query, key, start, end) {

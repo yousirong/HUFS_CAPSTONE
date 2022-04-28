@@ -10,6 +10,7 @@ import AccountPopover from './AccountPopover';
 // import LanguagePopover from './LanguagePopover';
 // import NotificationsPopover from './NotificationsPopover';
 
+// dashboard에서 navbar 출력 함수
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;

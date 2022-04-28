@@ -7,7 +7,7 @@ import Iconify from '../components/Iconify';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
 // mock
 import POSTS from '../_mock/blog';
-
+// 전에 프로젝트에서 했던거 가져옴. 팀원들에게 이런것도 있다 설명용
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [

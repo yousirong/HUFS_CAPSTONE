@@ -6,6 +6,7 @@ import { fToNow } from '../../../utils/formatTime';
 // components
 import Iconify from '../../../components/Iconify';
 import Scrollbar from '../../../components/Scrollbar';
+// 전에 했던 프로젝트 가져옴. 팀원들에게 이런것들도 있다 설명용
 
 // ----------------------------------------------------------------------
 

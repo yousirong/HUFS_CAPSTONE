@@ -25,7 +25,7 @@ import { fToNow } from '../../utils/formatTime';
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
-
+// 알림창인데 기능은 없음. -> 과거 프로젝트에서 변형만함. -> 이런기능도 있다는 설명용
 // ----------------------------------------------------------------------
 
 const NOTIFICATIONS = [

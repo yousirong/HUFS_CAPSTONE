@@ -7,7 +7,7 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
 import account from '../../_mock/account';
-
+// dashboard에서 오른쪽 상단에 표시될 User의 account 클릭 반응 및 출력 관련 함수
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [

@@ -5,6 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 import { Card, CardHeader, Box } from '@mui/material';
 // components
 import { BaseOptionChart } from '../../../components/chart';
+// 전에 했던 프로젝트 가져옴. 팀원들에게 이런것들도 있다 설명용
 
 // ----------------------------------------------------------------------
 

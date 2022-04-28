@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles';
-
+// 모든 page에 해당되는 color, pagecolor css 함수들
 // ----------------------------------------------------------------------
 
 function createGradient(color1, color2) {

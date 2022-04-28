@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { sample } from 'lodash';
-
+// product 더미데이터
 // ----------------------------------------------------------------------
 
 const PRODUCT_NAME = [

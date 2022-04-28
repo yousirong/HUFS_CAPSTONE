@@ -6,7 +6,7 @@ import Page from '../components/Page';
 import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
 import PRODUCTS from '../_mock/products';
-
+// 전에 프로젝트에서 했던거 가져옴. 팀원들에게 이런것도 있다 설명용
 // ----------------------------------------------------------------------
 
 export default function EcommerceShop() {

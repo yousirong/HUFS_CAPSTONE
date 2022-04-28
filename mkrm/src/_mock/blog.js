@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-
+// blog 더미데이터
 // ----------------------------------------------------------------------
 
 const POST_TITLES = [

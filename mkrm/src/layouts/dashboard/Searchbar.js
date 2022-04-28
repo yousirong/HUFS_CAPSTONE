@@ -4,7 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener } from '@mui/material';
 // component
 import Iconify from '../../components/Iconify';
-
+// dashboard search창 기능-> 아직 기능 없음 -> 카테고리page로 이동시키는 기능 추가하기
 // ----------------------------------------------------------------------
 
 const APPBAR_MOBILE = 64;

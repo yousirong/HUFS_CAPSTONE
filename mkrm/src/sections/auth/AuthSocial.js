@@ -2,7 +2,8 @@
 import { Stack, Button, Divider, Typography } from '@mui/material';
 // component
 import Iconify from '../../components/Iconify';
-
+// login과 register에 구글, 페이스북, 트위터로 가입할 건지 버튼 출력함수 -> 사용 x
+// 전에 프로젝트에서 가져옴.
 // ----------------------------------------------------------------------
 
 export default function AuthSocial() {

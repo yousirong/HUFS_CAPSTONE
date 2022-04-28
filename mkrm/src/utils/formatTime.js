@@ -1,5 +1,5 @@
 import { format, formatDistanceToNow } from 'date-fns';
-
+// 모든 페이지에서 출력되는 날짜 시간 dafault값 출력 함수
 // ----------------------------------------------------------------------
 
 export function fDate(date) {

@@ -3,7 +3,7 @@ import SimpleBarReact from 'simplebar-react';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
-
+// scollbar css 및 반응(override되는 반응은 theme 항목에서 찾으세요)
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(() => ({

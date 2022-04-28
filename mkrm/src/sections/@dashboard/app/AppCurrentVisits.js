@@ -8,6 +8,7 @@ import { Card, CardHeader } from '@mui/material';
 import { fNumber } from '../../../utils/formatNumber';
 // components
 import { BaseOptionChart } from '../../../components/chart';
+// 전에 했던 프로젝트 가져옴. 팀원들에게 이런것들도 있다 설명용
 
 // ----------------------------------------------------------------------
 

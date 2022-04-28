@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
-
+// 통계데이터와 카테고리 page에 쓸 color 자동 변환 함수와 export
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Box)({

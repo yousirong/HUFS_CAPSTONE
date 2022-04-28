@@ -10,7 +10,9 @@ import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
-
+// route 기능 -> login 기능과 register에서 로그인과 회원가입없이 dashboard로 이동할 수 없게 만들기
+// 기능 완성될 경우 sidebar에 login register 이동하는 항목 지우기
+// 현재 default 값은 dashboard 부터 출력됨.
 // ----------------------------------------------------------------------
 
 export default function Router() {

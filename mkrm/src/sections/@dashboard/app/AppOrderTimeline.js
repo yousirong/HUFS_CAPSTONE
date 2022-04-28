@@ -4,6 +4,7 @@ import { Card, Typography, CardHeader, CardContent } from '@mui/material';
 import { Timeline, TimelineDot, TimelineItem, TimelineContent, TimelineSeparator, TimelineConnector } from '@mui/lab';
 // utils
 import { fDateTime } from '../../../utils/formatTime';
+// 전에 했던 프로젝트 가져옴. 팀원들에게 이런것들도 있다 설명용
 
 // ----------------------------------------------------------------------
 

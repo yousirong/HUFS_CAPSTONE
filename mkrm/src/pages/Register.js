@@ -53,7 +53,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   padding: theme.spacing(12, 0),
 }));
-
+// register page 출력함수
 // ----------------------------------------------------------------------
 
 export default function Register() {

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Box, Checkbox } from '@mui/material';
 //
 import Iconify from '../Iconify';
-
+// 통계데이터와 카테고리 page에 쓸 color 자동 변환 함수와 export
+// 체크 박스 누를 시 색 변환 함수
 // ----------------------------------------------------------------------
 
 IconColor.propTypes = {

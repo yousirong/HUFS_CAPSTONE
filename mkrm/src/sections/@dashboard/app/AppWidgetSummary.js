@@ -6,7 +6,7 @@ import { Card, Typography } from '@mui/material';
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/Iconify';
-
+// 데이터 통걔 부분 dashboard에서 Hi, Welcome 밑에 4개 칸
 // ----------------------------------------------------------------------
 
 const IconWrapperStyle = styled('div')(({ theme }) => ({
@@ -49,7 +49,7 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
           backgroundImage: (theme) =>
             `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
               theme.palette[color].dark,
-              0.24
+              0.24,
             )} 100%)`,
         }}
       >

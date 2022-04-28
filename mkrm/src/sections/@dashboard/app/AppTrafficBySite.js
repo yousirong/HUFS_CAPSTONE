@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Card, Paper, Typography, CardHeader, CardContent } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
+// 전에 했던 프로젝트 가져옴. 팀원들에게 이런것들도 있다 설명용
 
 // ----------------------------------------------------------------------
 

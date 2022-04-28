@@ -11,6 +11,7 @@ import Page from '../components/Page';
 import { LoginForm } from '../sections/auth/login';
 // import AuthSocial from '../sections/auth/AuthSocial';
 
+// login page 출력 함수
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({

@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
 
+// dashboard 화면 크기 및 route에 보낼 출력 함수
 // ----------------------------------------------------------------------
 
 const APP_BAR_MOBILE = 64;

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // material
 import { Paper, Typography } from '@mui/material';
-
+// 404page 출력함수
 // ----------------------------------------------------------------------
 
 SearchNotFound.propTypes = {
