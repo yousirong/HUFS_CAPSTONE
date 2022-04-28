@@ -1,11 +1,5 @@
 {
   "root": true,
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-
   "extends": [
     "airbnb",
     "plugin:react/recommended",
@@ -26,8 +20,15 @@
       "jsx": true
     }
   },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+
   "rules": {
     "semi": "error",
+    "ignoreTranspilerName": 0,
     "no-shadow": 0,
     "no-console": 0,
     "react/jsx-key": 1,
@@ -60,6 +61,7 @@
     "react/function-component-definition": 0,
     "react/jsx-no-constructed-context-values": 0,
     "@typescript-eslint/rule-name": 0,
+    "react/display-name": 0,
     "import/no-extraneous-dependencies": [
       "error",
       {
