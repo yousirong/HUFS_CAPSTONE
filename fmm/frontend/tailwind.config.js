@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     screens: {
       sm: '600px',
-      md: '700px',
+      md: '900px',
       lg: '1200px',
       xl: '1280px',
       '2xl': '1536px',
@@ -537,7 +537,7 @@ module.exports = {
     }),
     maxHeight: (theme) => ({
       ...theme('spacing'),
-      full: '100%',
+      full: '0%',
       screen: '100vh',
     }),
     maxWidth: (theme, { breakpoints }) => ({

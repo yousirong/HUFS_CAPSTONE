@@ -5,7 +5,8 @@ import { Card, Link, Container, Typography } from '@mui/material'
 // hooks
 import useResponsive from '../../utils/useResponsive'
 // components
-import Page from '../Home/Dashboard/Page'
+// import Page from '../Home/Dashboard/Page'
+import MetaData from '../Layouts/MetaData'
 // import Logo from '../components/Logo';
 // sections
 import RegisterForm from '../User/auth/register/RegisterForm'
@@ -62,7 +63,7 @@ export default function Register() {
   const mdUp = useResponsive('up', 'md')
 
   return (
-    <Page title="Register">
+    <MetaData title="Register">
       <RootStyle>
         <HeaderStyle>{/* <Logo /> */}</HeaderStyle>
 
@@ -147,6 +148,6 @@ export default function Register() {
           </ContentStyle>
         </Container>
       </RootStyle>
-    </Page>
+    </MetaData>
   )
 }
