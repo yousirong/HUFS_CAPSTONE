@@ -1,11 +1,31 @@
 //------------------20220506 dashboard 중첩과정---------------------------------
 import { faker } from '@faker-js/faker';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector,
+} from '@mui/x-data-grid';
+import { useDemoData } from '@mui/x-data-grid-generator';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 // @mui
 import { useTheme } from '@mui/material/styles';
-
+import Box from '@mui/material/Box';
 import { filter } from 'lodash';
 import { useState } from 'react';
-
+import { styled } from '@mui/material/styles';
 import { Icon } from '@iconify/react';
 // material
 import {
@@ -63,6 +83,65 @@ import { clearErrors, getSliderProducts } from '../../actions/productAction';
 import { useSnackbar } from 'notistack';
 import MetaData from '../Layouts/MetaData';
 //---------------------------20220506 dashboard 중첩--------------------------------
+const columns = [
+  {
+    field: 'company',
+    headerName: '매장이름',
+    alignRight: false,
+  },
+  {
+    field: 'name',
+    headerName: '대표자이름',
+    alignRight: false,
+  },
+  {
+    field: 'repnum',
+    headerName: '대표번호',
+    alignRight: false,
+  },
+  {
+    field: 'sector',
+    headerName: '업종',
+    alignRight: false,
+  },
+  {
+    field: 'rating',
+    headerName: '평점',
+    alignRight: false,
+  },
+  {
+    field: 'review',
+    headerName: '리뷰',
+    alignRight: false,
+  },
+  {
+    field: 'isnew',
+    headerName: '신규',
+    alignRight: false,
+  },
+  {
+    field: 'location',
+    headerName: '위치',
+    alignRight: false,
+  },
+];
+const initialRows = [
+  {
+    id: 1,
+    first: 'Jane',
+    last: 'Carter',
+  },
+  {
+    id: 2,
+    first: 'Jack',
+    last: 'Smith',
+  },
+  {
+    id: 3,
+    first: 'Gill',
+    last: 'Martin',
+  },
+];
 const TABLE_HEAD = [
   { id: 'company', label: '매장이름', alignRight: false },
   { id: 'name', label: '대표자이름', alignRight: false },
@@ -105,6 +184,111 @@ function applySortFilter(array, comparator, query) {
 }
 //--------------------------------------------------------------------------------------
 
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  height: 600,
+  width: '100%',
+  '& .MuiFormGroup-options': {
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+    '& > div': {
+      minWidth: 100,
+      margin: theme.spacing(2),
+      marginLeft: 0,
+    },
+  },
+}));
+function SettingsPanel(props) {
+  const { onApply, type, size, theme } = props;
+  const [sizeState, setSize] = React.useState(size);
+  const [typeState, setType] = React.useState(type);
+  const [selectedPaginationValue, setSelectedPaginationValue] = React.useState(-1);
+  const [activeTheme, setActiveTheme] = React.useState(theme);
+
+  const handleSizeChange = React.useCallback((event) => {
+    setSize(Number(event.target.value));
+  }, []);
+
+  const handleDatasetChange = React.useCallback((event) => {
+    setType(event.target.value);
+  }, []);
+
+  const handlePaginationChange = React.useCallback((event) => {
+    setSelectedPaginationValue(event.target.value);
+  }, []);
+
+  const handleThemeChange = React.useCallback((event) => {
+    setActiveTheme(event.target.value);
+  }, []);
+
+  const handleApplyChanges = React.useCallback(() => {
+    onApply({
+      size: sizeState,
+      type: typeState,
+      pagesize: selectedPaginationValue,
+      theme: activeTheme,
+    });
+  }, [sizeState, typeState, selectedPaginationValue, activeTheme, onApply]);
+
+  return (
+    <FormGroup className="MuiFormGroup-options" row>
+      <FormControl variant="standard">
+        <InputLabel>Dataset</InputLabel>
+        <Select value={typeState} onChange={handleDatasetChange}>
+          <MenuItem value="Employee">Employee</MenuItem>
+          <MenuItem value="Commodity">Commodity</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl variant="standard">
+        <InputLabel>Rows</InputLabel>
+        <Select value={sizeState} onChange={handleSizeChange}>
+          <MenuItem value={100}>100</MenuItem>
+          <MenuItem value={1000}>{Number(1000).toLocaleString()}</MenuItem>
+          <MenuItem value={10000}>{Number(10000).toLocaleString()}</MenuItem>
+          <MenuItem value={100000}>{Number(100000).toLocaleString()}</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl variant="standard">
+        <InputLabel>Page Size</InputLabel>
+        <Select value={selectedPaginationValue} onChange={handlePaginationChange}>
+          <MenuItem value={-1}>off</MenuItem>
+          <MenuItem value={0}>auto</MenuItem>
+          <MenuItem value={25}>25</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+          <MenuItem value={1000}>{Number(1000).toLocaleString()}</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl variant="standard">
+        <InputLabel>Theme</InputLabel>
+        <Select value={activeTheme} onChange={handleThemeChange}>
+          <MenuItem value="default">Default Theme</MenuItem>
+          <MenuItem value="ant">Ant Design</MenuItem>
+        </Select>
+      </FormControl>
+      <Button size="small" variant="outlined" color="primary" onClick={handleApplyChanges}>
+        <KeyboardArrowRightIcon fontSize="small" /> Apply
+      </Button>
+    </FormGroup>
+  );
+}
+
+SettingsPanel.propTypes = {
+  onApply: PropTypes.func.isRequired,
+  size: PropTypes.number.isRequired,
+  theme: PropTypes.oneOf(['ant', 'default']).isRequired,
+  type: PropTypes.oneOf(['Commodity', 'Employee']).isRequired,
+};
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+}
 const Home = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -166,7 +350,7 @@ const Home = () => {
   };
   // 유저가 페이지를 행변환 할시 핸들러
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 5));
     setPage(0);
   };
   // 유저가 최근 검색 매장에서 매장이름으로 검색시 filter target
@@ -180,11 +364,81 @@ const Home = () => {
   // 매장이름으로 검색했는데 찾지 못했을 경우 반환 값
   const isUserNotFound = filteredUsers.length === 0;
   //-----------------------------------------------------------------------------------
+  const [rows, setRows] = React.useState(initialRows);
+  const [selectedRow, setSelectedRow] = React.useState();
+
+  const [contextMenu, setContextMenu] = React.useState(null);
+
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    setSelectedRow(Number(event.currentTarget.getAttribute('data-id')));
+    setContextMenu(contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null);
+  };
+
+  const handleClose = () => {
+    setContextMenu(null);
+  };
+  const [isAntDesign, setIsAntDesign] = React.useState(false);
+  const [type, setType] = React.useState('Commodity');
+  const [size, setSize] = React.useState(100);
+  const { data, setRowLength, loadNewData } = useDemoData({
+    dataSet: type,
+    rowLength: size,
+    maxColumns: 6,
+    editable: true,
+  });
+
+  const [pagination, setPagination] = React.useState({
+    pagination: false,
+    autoPageSize: false,
+    pageSize: undefined,
+  });
+
+  const getActiveTheme = () => {
+    return isAntDesign ? 'ant' : 'default';
+  };
+
+  const handleApplyClick = (settings) => {
+    if (size !== settings.size) {
+      setSize(settings.size);
+    }
+
+    if (type !== settings.type) {
+      setType(settings.type);
+    }
+
+    if (getActiveTheme() !== settings.theme) {
+      setIsAntDesign(!isAntDesign);
+    }
+
+    if (size !== settings.size || type !== settings.type) {
+      setRowLength(settings.size);
+      loadNewData();
+    }
+
+    const newPaginationSettings = {
+      pagination: settings.pagesize !== -1,
+      autoPageSize: settings.pagesize === 0,
+      pageSize: settings.pagesize > 0 ? settings.pagesize : undefined,
+    };
+
+    setPagination((currentPaginationSettings) => {
+      if (
+        currentPaginationSettings.pagination === newPaginationSettings.pagination &&
+        currentPaginationSettings.autoPageSize === newPaginationSettings.autoPageSize &&
+        currentPaginationSettings.pageSize === newPaginationSettings.pageSize
+      ) {
+        return currentPaginationSettings;
+      }
+      return newPaginationSettings;
+    });
+  };
+
   return (
     <>
       <MetaData title="Dashboard" />
       {/* -----------------20220506 dashboard 중첩------------------------------- */}
-      <Container maxWidth="lg">
+      <Container>
         <Typography variant="h4" sx={{ mb: 2 }}>
           안녕하세요, 환영합니다.
         </Typography>
@@ -205,21 +459,41 @@ const Home = () => {
             <AppWidgetSummary title="신규 매장 등록 수" total={315} color="error" icon="mdi:store-plus" />
             {/* <AppWidgetSummary title="New Store Registration" total={315} color="error" icon="mdi:store-plus" /> */}
           </Grid>
-
-          <Container maxWidth="lg">
+          <Container>
+            {/* <StyledBox> */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
               <Typography variant="h4" sx={{ mb: 2 }} gutterBottom>
                 최근 시장 검색
               </Typography>
             </Stack>
-            <Card>
-              <DashUserListToolbar
-                numSelected={selected.length}
-                filterName={filterName}
-                onFilterName={handleFilterByName}
-              />
-              <Scrollbar>
-                <TableContainer sx={{ minWidth: 800 }}>
+            <StyledBox>
+              <SettingsPanel onApply={handleApplyClick} size={size} type={type} theme={getActiveTheme()} />
+
+              <Card>
+                <DataGrid
+                  columns={columns}
+                  rows={rows}
+                  components={{
+                    LoadingOverlay: LinearProgress,
+                    Toolbar: CustomToolbar,
+                  }}
+                  loading={loading}
+                  checkboxSelection
+                  disableSelectionOnClick
+                  rowThreshold={0}
+                  initialState={{
+                    ...data.initialState,
+                    pinnedColumns: { left: ['__check__', 'desk'] },
+                  }}
+                  {...pagination}
+                />
+                <DashUserListToolbar
+                  numSelected={selected.length}
+                  filterName={filterName}
+                  onFilterName={handleFilterByName}
+                />
+                {/* <Scrollbar> */}
+                <TableContainer sx={{ minWidth: 500 }}>
                   <Table>
                     <UserListHead
                       lang="ko"
@@ -310,19 +584,19 @@ const Home = () => {
                     )}
                   </Table>
                 </TableContainer>
-              </Scrollbar>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={USERLIST.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Card>
+                {/* </Scrollbar> */}
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25]}
+                  component="div"
+                  count={USERLIST.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Card>
+            </StyledBox>
           </Container>
-
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
               title="Website Visits"
@@ -409,7 +683,7 @@ const Home = () => {
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="News Update"
               list={[...Array(5)].map((_, index) => ({
@@ -420,7 +694,7 @@ const Home = () => {
                 postedAt: faker.date.recent(),
               }))}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
               title="Order Timeline"
@@ -481,7 +755,7 @@ const Home = () => {
       </Container>
       {/* -----------------20220506 dashboard 중첩------------------------------- */}
 
-      <Container maxWidth="lg">
+      <Container>
         <Categories />
         {/* <main className="flex flex-col gap-3 px-2 mt-16 sm:mt-2"> */}
         <Banner />

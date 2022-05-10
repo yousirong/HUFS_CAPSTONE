@@ -13,6 +13,8 @@
     "@mui/material": "^5.6.4",
     "@mui/styled-engine-sc": "^5.6.1",
     "@mui/x-data-grid": "^5.10.0",
+    "@mui/x-data-grid-generator": "^5.10.0",
+    "@mui/x-data-grid-pro": "^5.10.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -24,6 +26,7 @@
     "flipkart": "file:..",
     "formik": "^2.2.9",
     "history": "^5.3.0",
+    "i18next": "^21.8.0",
     "lodash": "^4.17.21",
     "notistack": "^2.0.4",
     "numeral": "^2.0.6",
@@ -79,7 +82,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.15",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.0.15"
   }
 }

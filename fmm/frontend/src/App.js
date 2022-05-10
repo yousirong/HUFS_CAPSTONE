@@ -41,7 +41,6 @@ import Wishlist from './components/Wishlist/Wishlist';
 import NotFound from './components/NotFound';
 //
 
-import ScrollToTop from './components/Home/Dashboard/ScrollToTop';
 import { BaseOptionChartStyle } from './components/Home/Dashboard/chart/BaseOptionChart';
 // theme
 import ThemeProvider from './theme';
@@ -73,13 +72,13 @@ function App() {
   }, [dispatch]);
 
   // always scroll to top on route/path change
-  //   useEffect(() => {
-  //     window.scrollTo({
-  //       top: 0,
-  //       left: 0,
-  //       behavior: 'smooth',
-  //     })
-  //   }, [pathname])
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [pathname]);
 
   // disable right click
   window.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -92,11 +91,10 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <ScrollToTop />
         <BaseOptionChartStyle />
         {/* <Header /> */}
         <DashboardLayout />
-        <LogoOnlyLayout />
+        {/* <LogoOnlyLayout /> */}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -222,8 +220,8 @@ function App() {
 
           <Route path="/dashboard/cart" element={<Cart />} />
         </Routes>
+        <Footer />
       </ThemeProvider>
-      {/* <Footer /> */}
     </>
   );
 }

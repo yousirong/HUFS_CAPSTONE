@@ -1,21 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
 // material
-import { styled, alpha } from '@mui/material/styles'
-import {
-  Input,
-  Slide,
-  Button,
-  IconButton,
-  InputAdornment,
-  ClickAwayListener,
-} from '@mui/material'
+import { styled, alpha } from '@mui/material/styles';
+import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener } from '@mui/material';
 // component
-import Iconify from '../../Home/Dashboard/Iconify'
+import Iconify from '../../Home/Dashboard/Iconify';
 // dashboard search창 기능-> 아직 기능 없음 -> 카테고리page로 이동시키는 기능 추가하기
 // ----------------------------------------------------------------------
 
-const APPBAR_MOBILE = 64
-const APPBAR_DESKTOP = 92
+const APPBAR_MOBILE = 64;
+const APPBAR_DESKTOP = 92;
 
 const SearchbarStyle = styled('div')(({ theme }) => ({
   top: 0,
@@ -35,20 +28,20 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
     height: APPBAR_DESKTOP,
     padding: theme.spacing(0, 5),
   },
-}))
+}));
 
 // ----------------------------------------------------------------------
 
 export default function Searchbar() {
-  const [isOpen, setOpen] = useState(false)
+  const [isOpen, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen((prev) => !prev)
-  }
+    setOpen((prev) => !prev);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
@@ -70,10 +63,7 @@ export default function Searchbar() {
               // placeholder="Search…"
               startAdornment={
                 <InputAdornment position="start">
-                  <Iconify
-                    icon="eva:search-fill"
-                    sx={{ color: 'text.disabled', width: 20, height: 20 }}
-                  />
+                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
                 </InputAdornment>
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
@@ -86,5 +76,5 @@ export default function Searchbar() {
         </Slide>
       </div>
     </ClickAwayListener>
-  )
+  );
 }

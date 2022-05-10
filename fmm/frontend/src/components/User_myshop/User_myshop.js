@@ -21,7 +21,7 @@ import {
 // import DeleteIcon from '@mui/icons-material/Delete';
 import { Icon } from '@iconify/react';
 // components
-import Page from '../Home/Dashboard/Label';
+//import Page from '../Home/Dashboard/Label';
 import Label from '../Home/Dashboard/Label';
 import Scrollbar from '../Home/Dashboard/Scrollbar';
 import Iconify from '../Home/Dashboard/Iconify';
@@ -145,36 +145,36 @@ const User = () => {
 
   return (
     <>
-      <MetaData title="My Shop" />
-      <Container maxWidth="lg">
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={7}>
-          <Typography lang="ko" variant="h4" gutterBottom>
-            영업 관리 매장{/* My Shop */}
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button
-              lang="ko"
-              variant="contained"
-              component={RouterLink}
-              to="#"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              새로운 매장{/* New Shop */}
-            </Button>
-            {/* <Button variant="contained">삭제</Button> */}
-            <Button lang="ko" variant="contained">
-              진행상황 저장
-            </Button>
-            <Button lang="ko" variant="contained" color="success">
-              Excel 다운로드
-            </Button>
+      <MetaData title="My Shop">
+        <Container>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={7}>
+            <Typography lang="ko" variant="h4" gutterBottom>
+              영업 관리 매장{/* My Shop */}
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <Button
+                lang="ko"
+                variant="contained"
+                component={RouterLink}
+                to="#"
+                startIcon={<Iconify icon="eva:plus-fill" />}
+              >
+                새로운 매장{/* New Shop */}
+              </Button>
+              {/* <Button variant="contained">삭제</Button> */}
+              <Button lang="ko" variant="contained">
+                진행상황 저장
+              </Button>
+              <Button lang="ko" variant="contained" color="success">
+                Excel 다운로드
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
 
-        <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <Card>
+            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
-          <Scrollbar>
+            {/* <Scrollbar> */}
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
                 <UserListHead
@@ -253,19 +253,20 @@ const User = () => {
                 )}
               </Table>
             </TableContainer>
-          </Scrollbar>
+            {/* </Scrollbar> */}
 
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={USERLIST.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Card>
-      </Container>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={USERLIST.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Card>
+        </Container>
+      </MetaData>
     </>
   );
 };

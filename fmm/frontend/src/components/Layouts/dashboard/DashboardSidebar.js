@@ -1,38 +1,30 @@
-import PropTypes from 'prop-types'
-import { useEffect } from 'react'
-import { Link as RouterLink, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
-import { styled } from '@mui/material/styles'
-import {
-  Box,
-  Link,
-  Button,
-  Drawer,
-  Typography,
-  Avatar,
-  Stack,
-} from '@mui/material'
+import { styled } from '@mui/material/styles';
+import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
 // mock
-import account from '../../../_mock/account'
+import account from '../../../_mock/account';
 // hooks
-import useResponsive from '../../../utils/useResponsive'
+import useResponsive from '../../../utils/useResponsive';
 // components
 // import Logo from '../../components/Logo';
-import Scrollbar from '../../Home/Dashboard/Scrollbar'
-import NavSection from '../../Layouts/dashboard/NavSection'
+import Scrollbar from '../../Home/Dashboard/Scrollbar';
+import NavSection from '../../Layouts/dashboard/NavSection';
 //
-import navConfig from './NavConfig'
+import navConfig from './NavConfig';
 
 // ----------------------------------------------------------------------
 
-const DRAWER_WIDTH = 280
+const DRAWER_WIDTH = 240;
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
     width: DRAWER_WIDTH,
   },
-}))
+}));
 
 const AccountStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -40,26 +32,26 @@ const AccountStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 2.5),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: theme.palette.grey[500_12],
-}))
+}));
 // dashboard함수에 sidebar 출력 함수
 // ----------------------------------------------------------------------
 
 DashboardSidebar.propTypes = {
   isOpenSidebar: PropTypes.bool,
   onCloseSidebar: PropTypes.func,
-}
+};
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
-  const isDesktop = useResponsive('up', 'lg')
+  const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
     if (isOpenSidebar) {
-      onCloseSidebar()
+      onCloseSidebar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  }, [pathname]);
 
   const renderContent = (
     <Scrollbar
@@ -72,9 +64,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         },
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        {/* <Logo /> */}
-      </Box>
+      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{/* <Logo /> */}</Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
@@ -96,24 +86,16 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Stack
-          alignItems="center"
-          spacing={3}
-          sx={{ pt: 5, borderRadius: 2, position: 'relative' }}
-        >
-          <Button
-            href="https://www.google.co.kr/"
-            target="_blank"
-            variant="contained"
-          >
+      <Box sx={{ px: 2.5, pb: 3, mt: 30 }}>
+        <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
+          <Button href="https://www.google.co.kr/" target="_blank" variant="contained">
             로그아웃
             {/* Log Out */}
           </Button>
         </Stack>
       </Box>
     </Scrollbar>
-  )
+  );
 
   return (
     <RootStyle>
@@ -145,5 +127,5 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         </Drawer>
       )}
     </RootStyle>
-  )
+  );
 }

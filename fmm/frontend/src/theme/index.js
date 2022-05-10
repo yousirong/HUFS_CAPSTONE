@@ -14,7 +14,7 @@ import shadows, { customShadows } from './shadows';
 ThemeProvider.propTypes = {
   children: PropTypes.node,
 };
-
+//box안에 담기는 container의 꼭지점을 둥글게 만드는 것 -> shape: { borderRadius: 8 }
 export default function ThemeProvider({ children }) {
   const themeOptions = useMemo(
     () => ({
