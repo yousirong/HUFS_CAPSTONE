@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
+import Menu from '@mui/material/Menu';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -125,21 +126,51 @@ const columns = [
     alignRight: false,
   },
 ];
-const initialRows = [
+const Rows = [
   {
     id: 1,
-    first: 'Jane',
-    last: 'Carter',
+    company: 'Jane',
+    name: 'Carter',
   },
   {
     id: 2,
-    first: 'Jack',
-    last: 'Smith',
+    company: 'Jack',
+    name: 'Smith',
   },
   {
     id: 3,
-    first: 'Gill',
-    last: 'Martin',
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 4,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 5,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 6,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 7,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 8,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 9,
+    company: 'Gill',
+    name: 'Martin',
   },
 ];
 const TABLE_HEAD = [
@@ -200,11 +231,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 function SettingsPanel(props) {
-  const { onApply, type, size, theme } = props;
+  const { onApply, type, size } = props;
   const [sizeState, setSize] = React.useState(size);
   const [typeState, setType] = React.useState(type);
   const [selectedPaginationValue, setSelectedPaginationValue] = React.useState(-1);
-  const [activeTheme, setActiveTheme] = React.useState(theme);
+  //   const [activeTheme, setActiveTheme] = React.useState(theme);
 
   const handleSizeChange = React.useCallback((event) => {
     setSize(Number(event.target.value));
@@ -218,18 +249,18 @@ function SettingsPanel(props) {
     setSelectedPaginationValue(event.target.value);
   }, []);
 
-  const handleThemeChange = React.useCallback((event) => {
-    setActiveTheme(event.target.value);
-  }, []);
+  //   const handleThemeChange = React.useCallback((event) => {
+  //     setActiveTheme(event.target.value);
+  //   }, []);
 
   const handleApplyChanges = React.useCallback(() => {
     onApply({
       size: sizeState,
       type: typeState,
       pagesize: selectedPaginationValue,
-      theme: activeTheme,
+      //   theme: activeTheme,
     });
-  }, [sizeState, typeState, selectedPaginationValue, activeTheme, onApply]);
+  }, [sizeState, typeState, selectedPaginationValue, onApply]);
 
   return (
     <FormGroup className="MuiFormGroup-options" row>
@@ -237,7 +268,7 @@ function SettingsPanel(props) {
         <InputLabel>Dataset</InputLabel>
         <Select value={typeState} onChange={handleDatasetChange}>
           <MenuItem value="Employee">Employee</MenuItem>
-          <MenuItem value="Commodity">Commodity</MenuItem>
+          <MenuItem value="Commodity">Market</MenuItem>
         </Select>
       </FormControl>
       <FormControl variant="standard">
@@ -259,13 +290,13 @@ function SettingsPanel(props) {
           <MenuItem value={1000}>{Number(1000).toLocaleString()}</MenuItem>
         </Select>
       </FormControl>
-      <FormControl variant="standard">
+      {/* <FormControl variant="standard">
         <InputLabel>Theme</InputLabel>
         <Select value={activeTheme} onChange={handleThemeChange}>
           <MenuItem value="default">Default Theme</MenuItem>
           <MenuItem value="ant">Ant Design</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> 지우기 */}
       <Button size="small" variant="outlined" color="primary" onClick={handleApplyChanges}>
         <KeyboardArrowRightIcon fontSize="small" /> Apply
       </Button>
@@ -276,7 +307,7 @@ function SettingsPanel(props) {
 SettingsPanel.propTypes = {
   onApply: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
-  theme: PropTypes.oneOf(['ant', 'default']).isRequired,
+  //   theme: PropTypes.oneOf(['ant', 'default']).isRequired,
   type: PropTypes.oneOf(['Commodity', 'Employee']).isRequired,
 };
 function CustomToolbar() {
@@ -364,21 +395,7 @@ const Home = () => {
   // 매장이름으로 검색했는데 찾지 못했을 경우 반환 값
   const isUserNotFound = filteredUsers.length === 0;
   //-----------------------------------------------------------------------------------
-  const [rows, setRows] = React.useState(initialRows);
-  const [selectedRow, setSelectedRow] = React.useState();
 
-  const [contextMenu, setContextMenu] = React.useState(null);
-
-  const handleContextMenu = (event) => {
-    event.preventDefault();
-    setSelectedRow(Number(event.currentTarget.getAttribute('data-id')));
-    setContextMenu(contextMenu === null ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 } : null);
-  };
-
-  const handleClose = () => {
-    setContextMenu(null);
-  };
-  const [isAntDesign, setIsAntDesign] = React.useState(false);
   const [type, setType] = React.useState('Commodity');
   const [size, setSize] = React.useState(100);
   const { data, setRowLength, loadNewData } = useDemoData({
@@ -394,10 +411,6 @@ const Home = () => {
     pageSize: undefined,
   });
 
-  const getActiveTheme = () => {
-    return isAntDesign ? 'ant' : 'default';
-  };
-
   const handleApplyClick = (settings) => {
     if (size !== settings.size) {
       setSize(settings.size);
@@ -405,10 +418,6 @@ const Home = () => {
 
     if (type !== settings.type) {
       setType(settings.type);
-    }
-
-    if (getActiveTheme() !== settings.theme) {
-      setIsAntDesign(!isAntDesign);
     }
 
     if (size !== settings.size || type !== settings.type) {
@@ -433,7 +442,64 @@ const Home = () => {
       return newPaginationSettings;
     });
   };
+  const StyledGridOverlay = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    '& .ant-empty-img-1': {
+      fill: theme.palette.mode === 'light' ? '#aeb8c2' : '#262626',
+    },
+    '& .ant-empty-img-2': {
+      fill: theme.palette.mode === 'light' ? '#f5f5f7' : '#595959',
+    },
+    '& .ant-empty-img-3': {
+      fill: theme.palette.mode === 'light' ? '#dce0e6' : '#434343',
+    },
+    '& .ant-empty-img-4': {
+      fill: theme.palette.mode === 'light' ? '#fff' : '#1c1c1c',
+    },
+    '& .ant-empty-img-5': {
+      fillOpacity: theme.palette.mode === 'light' ? '0.8' : '0.08',
+      fill: theme.palette.mode === 'light' ? '#f5f5f5' : '#fff',
+    },
+  }));
 
+  function CustomNoRowsOverlay() {
+    return (
+      <StyledGridOverlay>
+        <svg width="120" height="100" viewBox="0 0 184 152" aria-hidden focusable="false">
+          <g fill="none" fillRule="evenodd">
+            <g transform="translate(24 31.67)">
+              <ellipse className="ant-empty-img-5" cx="67.797" cy="106.89" rx="67.797" ry="12.668" />
+              <path
+                className="ant-empty-img-1"
+                d="M122.034 69.674L98.109 40.229c-1.148-1.386-2.826-2.225-4.593-2.225h-51.44c-1.766 0-3.444.839-4.592 2.225L13.56 69.674v15.383h108.475V69.674z"
+              />
+              <path
+                className="ant-empty-img-2"
+                d="M33.83 0h67.933a4 4 0 0 1 4 4v93.344a4 4 0 0 1-4 4H33.83a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z"
+              />
+              <path
+                className="ant-empty-img-3"
+                d="M42.678 9.953h50.237a2 2 0 0 1 2 2V36.91a2 2 0 0 1-2 2H42.678a2 2 0 0 1-2-2V11.953a2 2 0 0 1 2-2zM42.94 49.767h49.713a2.262 2.262 0 1 1 0 4.524H42.94a2.262 2.262 0 0 1 0-4.524zM42.94 61.53h49.713a2.262 2.262 0 1 1 0 4.525H42.94a2.262 2.262 0 0 1 0-4.525zM121.813 105.032c-.775 3.071-3.497 5.36-6.735 5.36H20.515c-3.238 0-5.96-2.29-6.734-5.36a7.309 7.309 0 0 1-.222-1.79V69.675h26.318c2.907 0 5.25 2.448 5.25 5.42v.04c0 2.971 2.37 5.37 5.277 5.37h34.785c2.907 0 5.277-2.421 5.277-5.393V75.1c0-2.972 2.343-5.426 5.25-5.426h26.318v33.569c0 .617-.077 1.216-.221 1.789z"
+              />
+            </g>
+            <path
+              className="ant-empty-img-3"
+              d="M149.121 33.292l-6.83 2.65a1 1 0 0 1-1.317-1.23l1.937-6.207c-2.589-2.944-4.109-6.534-4.109-10.408C138.802 8.102 148.92 0 161.402 0 173.881 0 184 8.102 184 18.097c0 9.995-10.118 18.097-22.599 18.097-4.528 0-8.744-1.066-12.28-2.902z"
+            />
+            <g className="ant-empty-img-4" transform="translate(149.65 15.383)">
+              <ellipse cx="20.654" cy="3.167" rx="2.849" ry="2.815" />
+              <path d="M5.698 5.63H0L2.898.704zM9.259.704h4.985V5.63H9.259z" />
+            </g>
+          </g>
+        </svg>
+        <Box sx={{ mt: 1 }}>No Rows</Box>
+      </StyledGridOverlay>
+    );
+  }
   return (
     <>
       <MetaData title="Dashboard" />
@@ -467,33 +533,36 @@ const Home = () => {
               </Typography>
             </Stack>
             <StyledBox>
-              <SettingsPanel onApply={handleApplyClick} size={size} type={type} theme={getActiveTheme()} />
-
+              <SettingsPanel onApply={handleApplyClick} size={size} type={type} />
               <Card>
                 <DataGrid
                   columns={columns}
-                  rows={rows}
+                  rows={Rows}
                   components={{
                     LoadingOverlay: LinearProgress,
                     Toolbar: CustomToolbar,
+                    NoRowsOverlay: CustomNoRowsOverlay,
                   }}
                   loading={loading}
                   checkboxSelection
                   disableSelectionOnClick
                   rowThreshold={0}
+                  onRequestSort={handleRequestSort}
+                  onSelectAllClick={handleSelectAllClick}
                   initialState={{
                     ...data.initialState,
-                    pinnedColumns: { left: ['__check__', 'desk'] },
+                    pinnedColumns: { left: ['__check__', 'company'] },
                   }}
                   {...pagination}
                 />
                 <DashUserListToolbar
                   numSelected={selected.length}
                   filterName={filterName}
-                  onFilterName={handleFilterByName}
+                  onFilter
+                  Name={handleFilterByName}
                 />
                 {/* <Scrollbar> */}
-                <TableContainer sx={{ minWidth: 500 }}>
+                <TableContainer sx={{ minWidth: 800 }}>
                   <Table>
                     <UserListHead
                       lang="ko"
@@ -550,17 +619,7 @@ const Home = () => {
                               {isnew ? <Icon icon="bi:check" width="25" height="25" /> : ''}
                             </TableCell>
                             <TableCell align="left">{location}</TableCell>
-                            <TableCell align="left">
-                              {/* <Label
-                                  variant="ghost"
-                                  color={
-                                    (status === 'failure' && 'error') ||
-                                    'success'
-                                  }
-                                >
-                                  {sentenceCase(status)}
-                                </Label> */}
-                            </TableCell>
+                            <TableCell align="left"></TableCell>
                             <TableCell align="right">
                               <UserMoreMenu />
                             </TableCell>
