@@ -50,13 +50,13 @@ import LogoOnlyLayout from './components/Layouts/LogoOnlyLayout';
 function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  // api axios 구현 추가함/--------------------------------------------
-  // const [stripeApiKey, setStripeApiKey] = useState("");
+  //   api axios 구현 추가함/--------------------------------------------
+  //   const [stripeApiKey, setStripeApiKey] = useState("");
 
-  // async function getStripeApiKey() {
-  //   const { data } = await axios.get('/api/v1/stripeapikey');
-  //   setStripeApiKey(data.stripeApiKey);
-  // }
+  //   async function getStripeApiKey() {
+  //     const { data } = await axios.get('/api/v1/stripeapikey');
+  //     setStripeApiKey(data.stripeApiKey);
+  //   }
 
   useEffect(() => {
     WebFont.load({

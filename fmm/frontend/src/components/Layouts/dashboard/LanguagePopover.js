@@ -6,6 +6,8 @@ import { Box, MenuItem, Stack, IconButton } from '@mui/material';
 import MenuPopover from '../../Home/Dashboard/MenuPopover';
 // 번역
 import i18next from 'i18next';
+
+// en.json, ko.json 만들어 놔야됨.
 // 오른쪽 상단에 User account 출력 옆에 나타날 영한변환 함수 -> 크롬이용시 페이지 페이지 번역하는 아이콘 기능 ->
 // 클릭만 되고 번역하는 기능 연동을 아직 개발 못함. 클릭만 됨.
 // ----------------------------------------------------------------------

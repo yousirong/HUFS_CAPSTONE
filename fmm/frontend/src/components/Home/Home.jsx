@@ -172,6 +172,54 @@ const Rows = [
     company: 'Gill',
     name: 'Martin',
   },
+  {
+    id: 10,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 11,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 12,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 13,
+    company: 'Gill',
+    name: 'Martin',
+  },
+
+  {
+    id: 14,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 15,
+    company: 'Gill',
+    name: 'Martin',
+  },
+
+  {
+    id: 16,
+    company: 'Gill',
+    name: 'Martin',
+  },
+
+  {
+    id: 17,
+    company: 'Gill',
+    name: 'Martin',
+  },
+  {
+    id: 18,
+    company: 'Gill',
+    name: 'Martin',
+  },
 ];
 const TABLE_HEAD = [
   { id: 'company', label: '매장이름', alignRight: false },
