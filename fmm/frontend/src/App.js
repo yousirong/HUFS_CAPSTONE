@@ -2,11 +2,11 @@ import WebFont from 'webfontloader';
 import Footer from './components/Layouts/Footer/Footer';
 import Header from './components/Layouts/Header/Header';
 import Login from './components/User/Login';
-import Loginv1 from './components/User/Login_v1';
+
 import Register from './components/User/Register';
-import Registerv1 from './components/User/Register_v1';
+
 import User from './components/User_myshop/User_myshop';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate, useRoutes } from 'react-router-dom';
 import { loadUser } from './actions/userAction';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -27,7 +27,7 @@ import OrderStatus from './components/Cart/OrderStatus';
 import OrderSuccess from './components/Cart/OrderSuccess';
 import MyOrders from './components/Order/MyOrders';
 import OrderDetails from './components/Order/OrderDetails';
-import Dashboard from './components/Admin/Dashboard';
+import AdminDashboard from './components/Admin/Dashboard';
 import MainData from './components/Admin/MainData';
 import OrderTable from './components/Admin/OrderTable';
 import UpdateOrder from './components/Admin/UpdateOrder';
@@ -39,14 +39,10 @@ import UpdateUser from './components/Admin/UpdateUser';
 import ReviewsTable from './components/Admin/ReviewsTable';
 import Wishlist from './components/Wishlist/Wishlist';
 import NotFound from './components/NotFound';
-//
 
-import { BaseOptionChartStyle } from './components/Home/Dashboard/chart/BaseOptionChart';
-// theme
-import ThemeProvider from './theme';
 //layouts
 import DashboardLayout from './components/Layouts/dashboard';
-import LogoOnlyLayout from './components/Layouts/LogoOnlyLayout';
+import LogoOnlyLayout from './components/Layouts/LogoOnlyLayout/LogoOnlyLayout';
 function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -87,129 +83,61 @@ function App() {
     if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
     if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
   });
-
-  return (
+  let Page = useRoutes([
+    {
+      path: '/dashboard',
+      element: <DashboardLayout />,
+      children: [
+        { path: 'home', element: <Home /> },
+        { path: 'user', element: <User /> },
+        { path: 'products', element: <Products /> },
+        {
+          path: 'admin',
+          children: [
+            {
+              path: 'admindashboard',
+              element: (
+                <ProtectedRoute isAdmin={true}>
+                  <AdminDashboard activeTab={0}>
+                    <MainData />
+                  </AdminDashboard>
+                </ProtectedRoute>
+              ),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/',
+      element: <LogoOnlyLayout />,
+      children: [
+        { path: '/', element: <Navigate to="/dashboard/home" /> },
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> },
+        { path: '404', element: <NotFound /> },
+        { path: '*', element: <Navigate to="/404" /> },
+      ],
+    },
+  ]);
+  return Page;
+  /*
     <>
       <ThemeProvider>
         <BaseOptionChartStyle />
-        {/* <Header /> */}
-        <DashboardLayout />
-        {/* <LogoOnlyLayout /> */}
 
-        <Routes>
+         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/" Navigate to={'/dashboard/app'} />
-          <Route path="/user" element={<User />} />
-          {/* <Route path="/login" element={<Loginv1 />} /> */}
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/register" element={<Registerv1 />} /> */}
-          <Route path="/register" element={<Register />} />
 
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user" element={<User />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:keyword" element={<Products />} />
 
           <Route path="/cart" element={<Cart />} />
-
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={0}>
-                  <MainData />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/orders"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={1}>
-                  <OrderTable />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/order/:id"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={1}>
-                  <UpdateOrder />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/products"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={2}>
-                  <ProductTable />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/new_product"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={3}>
-                  <NewProduct />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/product/:id"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={2}>
-                  <UpdateProduct />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={4}>
-                  <UserTable />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/user/:id"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={4}>
-                  <UpdateUser />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
-          <Route
-            path="/admin/reviews"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <Dashboard activeTab={5}>
-                  <ReviewsTable />
-                </Dashboard>
-              </ProtectedRoute>
-            }
-          ></Route>
-
           <Route path="/404" element={<NotFound />}></Route>
           <Route path="*" element={<NotFound />}></Route>
           <Route path="/dashboard/app" element={<Home />} />
@@ -219,11 +147,109 @@ function App() {
           <Route path="/dashboard/products/:keyword" element={<Products />} />
 
           <Route path="/dashboard/cart" element={<Cart />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={0}>
+                  <MainData />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={1}>
+                  <OrderTable />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/order/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={1}>
+                  <UpdateOrder />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={2}>
+                  <ProductTable />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/new_product"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={3}>
+                  <NewProduct />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/product/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={2}>
+                  <UpdateProduct />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={4}>
+                  <UserTable />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={4}>
+                  <UpdateUser />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard activeTab={5}>
+                  <ReviewsTable />
+                </AdminDashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
         </Routes>
         <Footer />
       </ThemeProvider>
-    </>
-  );
+
+    </>*/
 }
 
 export default App;

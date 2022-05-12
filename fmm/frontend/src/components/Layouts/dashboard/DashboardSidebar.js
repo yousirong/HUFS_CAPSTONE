@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+
 // mock
 import account from '../../../_mock/account';
 // hooks
@@ -14,7 +17,7 @@ import Scrollbar from '../../Home/Dashboard/Scrollbar';
 import NavSection from '../../Layouts/dashboard/NavSection';
 //
 import navConfig from './NavConfig';
-
+import { logoutUser } from '../../../actions/userAction';
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 240;
@@ -46,6 +49,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { user } = useSelector((state) => state.user);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    enqueueSnackbar('Logout Successfully', { variant: 'success' });
+    navigate('/login');
+  };
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();

@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Menu from '@mui/material/Menu';
+
 import {
   DataGrid,
   GridToolbarContainer,
@@ -12,6 +13,7 @@ import {
   GridToolbarExport,
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
+import { DataGridPro, GridToolbar } from '@mui/x-data-grid-pro';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
@@ -84,53 +86,68 @@ import { clearErrors, getSliderProducts } from '../../actions/productAction';
 import { useSnackbar } from 'notistack';
 import MetaData from '../Layouts/MetaData';
 //---------------------------20220506 dashboard 중첩--------------------------------
+
 const columns = [
   {
     field: 'company',
     headerName: '매장이름',
     alignRight: false,
+    width: 150,
   },
   {
     field: 'name',
     headerName: '대표자이름',
     alignRight: false,
+    width: 80,
   },
   {
     field: 'repnum',
     headerName: '대표번호',
     alignRight: false,
+    width: 110,
   },
   {
     field: 'sector',
     headerName: '업종',
     alignRight: false,
+    width: 130,
   },
   {
     field: 'rating',
     headerName: '평점',
     alignRight: false,
+    width: 70,
   },
   {
     field: 'review',
     headerName: '리뷰',
     alignRight: false,
+    width: 80,
   },
   {
     field: 'isnew',
     headerName: '신규',
     alignRight: false,
+    width: 100,
   },
   {
     field: 'location',
     headerName: '위치',
     alignRight: false,
+    width: 280,
   },
 ];
 const Rows = [
   {
     id: 1,
-    company: 'Jane',
-    name: 'Carter',
+    company: '광화문진뚝해',
+    name: '해장국',
+    repnum: '02-730-0172',
+    sector: '해장국',
+    rating: '4.7',
+    review: '3',
+    isnew: 'yes',
+    location: '내수동 광화문시대 지하1층 B102호',
   },
   {
     id: 2,
@@ -233,6 +250,109 @@ const TABLE_HEAD = [
   //   { id: 'status', label: '진행상황', alignRight: false },
   { id: '' },
 ];
+
+const StyledDataGrid = styled(DataGridPro)(({ theme }) => ({
+  border: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`,
+  color: theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.85)',
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(','),
+  WebkitFontSmoothing: 'auto',
+  letterSpacing: 'normal',
+  '& .MuiDataGrid-columnsContainer': {
+    backgroundColor: theme.palette.mode === 'light' ? '#fafafa' : '#1d1d1d',
+  },
+  '& .MuiDataGrid-iconSeparator': {
+    display: 'none',
+  },
+  '& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
+    borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`,
+  },
+  '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+    borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`,
+  },
+  '& .MuiDataGrid-cell': {
+    color: theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.85)',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    WebkitFontSmoothing: 'auto',
+    letterSpacing: 'normal',
+    '& .MuiDataGrid-columnsContainer': {
+      backgroundColor: theme.palette.mode === 'light' ? '#fafafa' : '#1d1d1d',
+    },
+    '& .MuiDataGrid-iconSeparator': {
+      display: 'none',
+    },
+    '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`,
+    },
+    '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+      borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`,
+    },
+    '& .MuiDataGrid-cell': {
+      color: theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.65)',
+    },
+    '& .MuiPaginationItem-root': {
+      borderRadius: 0,
+    },
+    '& .MuiCheckbox-root svg': {
+      width: 16,
+      height: 16,
+      backgroundColor: 'transparent',
+      border: `1px solid ${theme.palette.mode === 'light' ? '#d9d9d9' : 'rgb(67, 67, 67)'}`,
+      borderRadius: 2,
+    },
+    '& .MuiCheckbox-root svg path': {
+      display: 'none',
+    },
+    '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
+      backgroundColor: '#1890ff',
+      borderColor: '#1890ff',
+    },
+    '& .MuiCheckbox-root.Mui-checked .MuiIconButton-label:after': {
+      position: 'absolute',
+      display: 'table',
+      border: '2px solid #fff',
+      borderTop: 0,
+      borderLeft: 0,
+      transform: 'rotate(45deg) translate(-50%,-50%)',
+      opacity: 1,
+      transition: 'all .2s cubic-bezier(.12,.4,.29,1.46) .1s',
+      content: '""',
+      top: '50%',
+      left: '39%',
+      width: 5.71428571,
+      height: 9.14285714,
+    },
+    '& .MuiCheckbox-root.MuiCheckbox-indeterminate .MuiIconButton-label:after': {
+      width: 8,
+      height: 8,
+      backgroundColor: '#1890ff',
+      transform: 'none',
+      top: '39%',
+      border: 0,
+    },
+  },
+}));
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -266,7 +386,7 @@ function applySortFilter(array, comparator, query) {
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: 600,
+  height: 700,
   width: '100%',
   '& .MuiFormGroup-options': {
     alignItems: 'center',
@@ -356,7 +476,7 @@ SettingsPanel.propTypes = {
   onApply: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
   //   theme: PropTypes.oneOf(['ant', 'default']).isRequired,
-  type: PropTypes.oneOf(['Commodity', 'Employee']).isRequired,
+  type: PropTypes.oneOf(['Market', 'Employee']).isRequired,
 };
 function CustomToolbar() {
   return (
@@ -367,6 +487,11 @@ function CustomToolbar() {
       <GridToolbarExport />
     </GridToolbarContainer>
   );
+}
+function querySelectorByClassName() {
+  const div_list = document.querySelectorAll('.MuiDataGrid-root css-k7dv9g-MuiDataGrid-root');
+
+  div_list.style.visibility = 'hidden';
 }
 const Home = () => {
   const dispatch = useDispatch();
@@ -443,13 +568,13 @@ const Home = () => {
   // 매장이름으로 검색했는데 찾지 못했을 경우 반환 값
   const isUserNotFound = filteredUsers.length === 0;
   //-----------------------------------------------------------------------------------
-
+  //const [isAntDesign, setIsAntDesign] = React.useState(false);
   const [type, setType] = React.useState('Commodity');
   const [size, setSize] = React.useState(100);
   const { data, setRowLength, loadNewData } = useDemoData({
     dataSet: type,
     rowLength: size,
-    maxColumns: 6,
+    maxColumns: 8,
     editable: true,
   });
 
@@ -458,7 +583,9 @@ const Home = () => {
     autoPageSize: false,
     pageSize: undefined,
   });
-
+  //   const getActiveTheme = () => {
+  //     return isAntDesign ? 'ant' : 'default';
+  //   };
   const handleApplyClick = (settings) => {
     if (size !== settings.size) {
       setSize(settings.size);
@@ -467,7 +594,9 @@ const Home = () => {
     if (type !== settings.type) {
       setType(settings.type);
     }
-
+    // if (getActiveTheme() !== settings.theme) {
+    //   setIsAntDesign(!isAntDesign);
+    // }
     if (size !== settings.size || type !== settings.type) {
       setRowLength(settings.size);
       loadNewData();
@@ -495,6 +624,7 @@ const Home = () => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+
     height: '100%',
     '& .ant-empty-img-1': {
       fill: theme.palette.mode === 'light' ? '#aeb8c2' : '#262626',
@@ -548,11 +678,12 @@ const Home = () => {
       </StyledGridOverlay>
     );
   }
+
   return (
     <>
       <MetaData title="Dashboard" />
       {/* -----------------20220506 dashboard 중첩------------------------------- */}
-      <Container>
+      <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 2 }}>
           안녕하세요, 환영합니다.
         </Typography>
@@ -574,7 +705,6 @@ const Home = () => {
             {/* <AppWidgetSummary title="New Store Registration" total={315} color="error" icon="mdi:store-plus" /> */}
           </Grid>
           <Container>
-            {/* <StyledBox> */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
               <Typography variant="h4" sx={{ mb: 2 }} gutterBottom>
                 최근 시장 검색
@@ -582,8 +712,8 @@ const Home = () => {
             </Stack>
             <StyledBox>
               <SettingsPanel onApply={handleApplyClick} size={size} type={type} />
-              <Card>
-                <DataGrid
+              <Card maxWidth="xl">
+                <DataGridPro
                   columns={columns}
                   rows={Rows}
                   components={{
@@ -594,11 +724,10 @@ const Home = () => {
                   loading={loading}
                   checkboxSelection
                   disableSelectionOnClick
+                  querySelectorByClassName
                   rowThreshold={0}
-                  onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
                   initialState={{
-                    ...data.initialState,
+                    ...Rows.initialState,
                     pinnedColumns: { left: ['__check__', 'company'] },
                   }}
                   {...pagination}
@@ -609,89 +738,89 @@ const Home = () => {
                   onFilter
                   Name={handleFilterByName}
                 />
-                {/* <Scrollbar> */}
-                <TableContainer sx={{ minWidth: 800 }}>
-                  <Table>
-                    <UserListHead
-                      lang="ko"
-                      order={order}
-                      orderBy={orderBy}
-                      headLabel={TABLE_HEAD}
-                      rowCount={USERLIST.length}
-                      numSelected={selected.length}
-                      onRequestSort={handleRequestSort}
-                      onSelectAllClick={handleSelectAllClick}
-                    />
-                    <TableBody>
-                      {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                        const {
-                          company,
-                          id,
-                          name,
-                          repnum,
-                          sector,
-                          rating,
-                          review,
-                          isnew,
-                          //   status,
-                          location,
-                          avatarUrl,
-                        } = row;
-                        const isItemSelected = selected.indexOf(name) !== -1;
-                        return (
-                          <TableRow
-                            hover
-                            key={id}
-                            tabIndex={-1}
-                            role="checkbox"
-                            selected={isItemSelected}
-                            aria-checked={isItemSelected}
-                          >
-                            <TableCell padding="checkbox">
-                              <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
-                            </TableCell>
-                            <TableCell component="th" scope="row" padding="none">
-                              <Stack direction="row" alignItems="center" spacing={2}>
-                                <Avatar alt={name} src={avatarUrl} />
-                                <Typography variant="subtitle2" noWrap>
-                                  {name}
-                                </Typography>
-                              </Stack>
-                            </TableCell>
-                            <TableCell align="left">{company}</TableCell>
-                            <TableCell align="left">{repnum}</TableCell>
-                            <TableCell align="left">{sector}</TableCell>
-                            <TableCell align="left">{rating}</TableCell>
-                            <TableCell align="left">{review}</TableCell>
-                            <TableCell align="left">
-                              {isnew ? <Icon icon="bi:check" width="25" height="25" /> : ''}
-                            </TableCell>
-                            <TableCell align="left">{location}</TableCell>
-                            <TableCell align="left"></TableCell>
-                            <TableCell align="right">
-                              <UserMoreMenu />
+                <Scrollbar>
+                  <TableContainer sx={{ minWidth: 800 }}>
+                    <Table>
+                      <UserListHead
+                        lang="ko"
+                        order={order}
+                        orderBy={orderBy}
+                        headLabel={TABLE_HEAD}
+                        rowCount={USERLIST.length}
+                        numSelected={selected.length}
+                        onRequestSort={handleRequestSort}
+                        onSelectAllClick={handleSelectAllClick}
+                      />
+                      <TableBody>
+                        {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                          const {
+                            company,
+                            id,
+                            name,
+                            repnum,
+                            sector,
+                            rating,
+                            review,
+                            isnew,
+                            //   status,
+                            location,
+                            avatarUrl,
+                          } = row;
+                          const isItemSelected = selected.indexOf(name) !== -1;
+                          return (
+                            <TableRow
+                              hover
+                              key={id}
+                              tabIndex={-1}
+                              role="checkbox"
+                              selected={isItemSelected}
+                              aria-checked={isItemSelected}
+                            >
+                              <TableCell padding="checkbox">
+                                <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                              </TableCell>
+                              <TableCell component="th" scope="row" padding="none">
+                                <Stack direction="row" alignItems="center" spacing={2}>
+                                  <Avatar alt={name} src={avatarUrl} />
+                                  <Typography variant="subtitle2" noWrap>
+                                    {name}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="left">{company}</TableCell>
+                              <TableCell align="left">{repnum}</TableCell>
+                              <TableCell align="left">{sector}</TableCell>
+                              <TableCell align="left">{rating}</TableCell>
+                              <TableCell align="left">{review}</TableCell>
+                              <TableCell align="left">
+                                {isnew ? <Icon icon="bi:check" width="25" height="25" /> : ''}
+                              </TableCell>
+                              <TableCell align="left">{location}</TableCell>
+                              <TableCell align="left"></TableCell>
+                              <TableCell align="right">
+                                <UserMoreMenu />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                        {emptyRows > 0 && (
+                          <TableRow style={{ height: 53 * emptyRows }}>
+                            <TableCell colSpan={6} />
+                          </TableRow>
+                        )}
+                      </TableBody>
+                      {isUserNotFound && (
+                        <TableBody>
+                          <TableRow>
+                            <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                              <SearchNotFound searchQuery={filterName} />
                             </TableCell>
                           </TableRow>
-                        );
-                      })}
-                      {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                          <TableCell colSpan={6} />
-                        </TableRow>
+                        </TableBody>
                       )}
-                    </TableBody>
-                    {isUserNotFound && (
-                      <TableBody>
-                        <TableRow>
-                          <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                            <SearchNotFound searchQuery={filterName} />
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    )}
-                  </Table>
-                </TableContainer>
-                {/* </Scrollbar> */}
+                    </Table>
+                  </TableContainer>
+                </Scrollbar>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25]}
                   component="div"
@@ -790,7 +919,7 @@ const Home = () => {
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
           </Grid>
-          {/* <Grid item xs={12} md={6} lg={8}>
+          <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="News Update"
               list={[...Array(5)].map((_, index) => ({
@@ -801,7 +930,7 @@ const Home = () => {
                 postedAt: faker.date.recent(),
               }))}
             />
-          </Grid> */}
+          </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
               title="Order Timeline"
