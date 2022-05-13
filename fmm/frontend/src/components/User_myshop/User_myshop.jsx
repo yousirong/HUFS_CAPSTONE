@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { filter } from 'lodash';
 
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import {
   Card,
+  Tooltip,
   Table,
   Stack,
   Avatar,
@@ -14,14 +16,15 @@ import {
   TableRow,
   TableBody,
   TableCell,
+  Toolbar,
+  IconButton,
   Container,
   Typography,
   TableContainer,
   TablePagination,
+  OutlinedInput,
 } from '@mui/material';
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import LinearProgress from '@mui/material/LinearProgress';
+import { useDemoData, randomCreatedDate, randomUpdatedDate } from '@mui/x-data-grid-generator';
 
 import {
   DataGrid,
@@ -30,12 +33,16 @@ import {
   GridToolbarFilterButton,
   GridToolbarExport,
   GridToolbarDensitySelector,
+  GridActionsCellItem,
 } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
+import PropTypes, { string } from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import SecurityIcon from '@mui/icons-material/Security';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -58,59 +65,25 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, getSliderProducts } from '../../actions/productAction';
 import { useSnackbar } from 'notistack';
-
+import { sample } from 'lodash';
 // user_myshop page 출력함수
 // my shop 페이지에서 +new shop 버튼은 일단 만들어놓음 -> 추후에 개발 시간 남으면 개발 ㄱ
 // ----------------------------------------------------------------------
 // 순서대로 myshop 열 데이터
 // 매장이름-> 대표자이름 -> 대표번호 -> 업종 -> 평점 -> 리뷰  ->신규 -> 진행상황
-const columns = [
-  {
-    field: 'company',
-    headerName: '매장이름',
-    alignRight: false,
-  },
-  {
-    field: 'name',
-    headerName: '대표자이름',
-    alignRight: false,
-  },
-  {
-    field: 'repnum',
-    headerName: '대표번호',
-    alignRight: false,
-  },
-  {
-    field: 'sector',
-    headerName: '업종',
-    alignRight: false,
-  },
-  {
-    field: 'rating',
-    headerName: '평점',
-    alignRight: false,
-  },
-  {
-    field: 'review',
-    headerName: '리뷰',
-    alignRight: false,
-  },
-  {
-    field: 'isnew',
-    headerName: '신규',
-    alignRight: false,
-  },
-  {
-    field: 'location',
-    headerName: '위치',
-    alignRight: false,
-  },
-];
-const Rows = [
+
+const initialRows = [
   {
     id: 1,
-    company: 'Jane',
-    name: 'Carter',
+    company: '광화문진뚝해',
+    name: '해장국',
+    repnum: '02-730-0172',
+    sector: '해장국',
+    rating: '4.7',
+    review: '3',
+    isnew: true,
+    stauts: '미정',
+    location: '내수동 광화문시대 지하1층 B102호',
   },
   {
     id: 2,
@@ -161,8 +134,8 @@ const TABLE_HEAD = [
   { id: 'rating', label: '평점', alignRight: false },
   { id: 'review', label: '리뷰', alignRight: false },
   { id: 'isnew', label: '신규', alignRight: false },
-  { id: 'location', label: '위치', alignRight: false },
   { id: 'status', label: '진행상황', alignRight: false },
+  { id: 'location', label: '위치', alignRight: false },
 
   { id: '' },
 ];
@@ -197,6 +170,8 @@ function applySortFilter(array, comparator, query) {
   }
   return stabilizedThis.map((el) => el[0]);
 }
+
+//---------------------------------------------------------------------------------
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -217,7 +192,6 @@ function SettingsPanel(props) {
   const [sizeState, setSize] = React.useState(size);
   const [typeState, setType] = React.useState(type);
   const [selectedPaginationValue, setSelectedPaginationValue] = React.useState(-1);
-  //   const [activeTheme, setActiveTheme] = React.useState(theme);
 
   const handleSizeChange = React.useCallback((event) => {
     setSize(Number(event.target.value));
@@ -231,16 +205,11 @@ function SettingsPanel(props) {
     setSelectedPaginationValue(event.target.value);
   }, []);
 
-  //   const handleThemeChange = React.useCallback((event) => {
-  //     setActiveTheme(event.target.value);
-  //   }, []);
-
   const handleApplyChanges = React.useCallback(() => {
     onApply({
       size: sizeState,
       type: typeState,
       pagesize: selectedPaginationValue,
-      //   theme: activeTheme,
     });
   }, [sizeState, typeState, selectedPaginationValue, onApply]);
 
@@ -272,13 +241,6 @@ function SettingsPanel(props) {
           <MenuItem value={1000}>{Number(1000).toLocaleString()}</MenuItem>
         </Select>
       </FormControl>
-      {/* <FormControl variant="standard">
-        <InputLabel>Theme</InputLabel>
-        <Select value={activeTheme} onChange={handleThemeChange}>
-          <MenuItem value="default">Default Theme</MenuItem>
-          <MenuItem value="ant">Ant Design</MenuItem>
-        </Select>
-      </FormControl> 지우기 */}
       <Button size="small" variant="outlined" color="primary" onClick={handleApplyChanges}>
         <KeyboardArrowRightIcon fontSize="small" /> Apply
       </Button>
@@ -288,24 +250,129 @@ function SettingsPanel(props) {
 SettingsPanel.propTypes = {
   onApply: PropTypes.func.isRequired,
   size: PropTypes.number.isRequired,
-  //   theme: PropTypes.oneOf(['ant', 'default']).isRequired,
   type: PropTypes.oneOf(['Commodity', 'Employee']).isRequired,
 };
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarColumnsButton />
-      <GridToolbarFilterButton />
-      <GridToolbarDensitySelector />
-      <GridToolbarExport />
-    </GridToolbarContainer>
-  );
-}
+
 const User = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const { error, loading } = useSelector((state) => state.products);
+  const [rows, setRows] = React.useState(initialRows);
+  // 원하는 매장 삭제
+  const deleteCompany = React.useCallback(
+    (id) => () => {
+      setTimeout(() => {
+        setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+      });
+    },
+    [],
+  );
+  // 진행상황 변경
+  const editStatus = React.useCallback(
+    (id) => () => {
+      setRows((prevRows) => prevRows.map((row) => (row.id === id ? { ...row, status: '미정' } : row)));
+    },
+    [],
+  );
+  const columns = React.useMemo(
+    () => [
+      {
+        field: 'company',
+        headerName: '매장이름',
+        type: 'string',
+        width: 150,
+        alignRight: false,
+      },
+      {
+        field: 'name',
+        headerName: '대표자이름',
+        type: 'string',
+        width: 80,
+        alignRight: false,
+      },
+      {
+        field: 'repnum',
+        headerName: '대표번호',
+        type: 'string',
+        width: 110,
+        alignRight: false,
+      },
+      {
+        field: 'sector',
+        headerName: '업종',
+        type: 'string',
+        width: 130,
+        alignRight: false,
+      },
+      {
+        field: 'rating',
+        headerName: '평점',
+        type: 'number',
+        width: 70,
+        alignRight: false,
+      },
+      {
+        field: 'review',
+        headerName: '리뷰',
+        type: 'number',
+        width: 80,
+        alignRight: false,
+      },
+      {
+        field: 'isnew',
+        headerName: '신규',
+        type: 'boolean',
+        width: 100,
+        alignRight: false,
+      },
+      {
+        field: 'status',
+        headerName: '진행상황',
+        type: 'singleSelect',
+        value: string,
+        label: string,
+        editable: true,
+        valueOptions: ({ row }) => {
+          if (row === undefined) {
+            return ['미정', '진행중', '완료', '실패'];
+          }
+          const options = [];
+          if (!['미정'].includes(row.status)) {
+            options.push('미정', '진행중', '완료', '실패');
+          } else {
+            options.push('미정');
+          }
+          return options;
+        },
+        width: 90,
+        alignRight: false,
+      },
+      {
+        field: 'location',
+        headerName: '위치',
+        type: 'string',
+        width: 280,
+        alignRight: false,
+      },
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 80,
+        getActions: (params) => [
+          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={deleteCompany(params.id)} />,
+          <GridActionsCellItem
+            icon={<SecurityIcon />}
+            label="Edit 진행상황"
+            onClick={editStatus(params.id)}
+            showInMenu
+          />,
+        ],
+      },
+    ],
+    [deleteCompany, editStatus],
+  );
+
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: 'error' });
@@ -378,7 +445,7 @@ const User = () => {
   const { data, setRowLength, loadNewData } = useDemoData({
     dataSet: type,
     rowLength: size,
-    maxColumns: 6,
+    maxColumns: 8,
     editable: true,
   });
 
@@ -419,6 +486,16 @@ const User = () => {
       return newPaginationSettings;
     });
   };
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport utf8WithBom={true} />
+      </GridToolbarContainer>
+    );
+  }
   const StyledGridOverlay = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -499,9 +576,6 @@ const User = () => {
               <Button lang="ko" variant="contained">
                 진행상황 저장
               </Button>
-              <Button lang="ko" variant="contained" color="success">
-                Excel 다운로드
-              </Button>
             </Stack>
           </Stack>
 
@@ -510,7 +584,7 @@ const User = () => {
             <Card>
               <DataGrid
                 columns={columns}
-                rows={Rows}
+                rows={rows}
                 components={{
                   LoadingOverlay: LinearProgress,
                   Toolbar: CustomToolbar,
@@ -520,8 +594,6 @@ const User = () => {
                 checkboxSelection
                 disableSelectionOnClick
                 rowThreshold={0}
-                onRequestSort={handleRequestSort}
-                onSelectAllClick={handleSelectAllClick}
                 initialState={{
                   ...data.initialState,
                   pinnedColumns: { left: ['__check__', 'company'] },
@@ -531,8 +603,7 @@ const User = () => {
               <UserListToolbar
                 numSelected={selected.length}
                 filterName={filterName}
-                onFilter
-                Name={handleFilterByName}
+                onFilterName={handleFilterByName}
               />
               {/* <Scrollbar> */}
               <TableContainer sx={{ minWidth: 800 }}>
@@ -601,7 +672,7 @@ const User = () => {
                     })}
                     {emptyRows > 0 && (
                       <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
+                        <TableCell colSpan={10} />
                       </TableRow>
                     )}
                   </TableBody>

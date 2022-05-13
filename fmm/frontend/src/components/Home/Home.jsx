@@ -12,7 +12,10 @@ import {
   GridToolbarFilterButton,
   GridToolbarExport,
   GridToolbarDensitySelector,
+  GridActionsCellItem,
 } from '@mui/x-data-grid';
+
+import SecurityIcon from '@mui/icons-material/Security';
 import { DataGridPro, GridToolbar } from '@mui/x-data-grid-pro';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -23,8 +26,10 @@ import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 // @mui
 import { useTheme } from '@mui/material/styles';
+
 import Box from '@mui/material/Box';
 import { filter } from 'lodash';
 import { useState } from 'react';
@@ -87,57 +92,7 @@ import { useSnackbar } from 'notistack';
 import MetaData from '../Layouts/MetaData';
 //---------------------------20220506 dashboard 중첩--------------------------------
 
-const columns = [
-  {
-    field: 'company',
-    headerName: '매장이름',
-    alignRight: false,
-    width: 150,
-  },
-  {
-    field: 'name',
-    headerName: '대표자이름',
-    alignRight: false,
-    width: 80,
-  },
-  {
-    field: 'repnum',
-    headerName: '대표번호',
-    alignRight: false,
-    width: 110,
-  },
-  {
-    field: 'sector',
-    headerName: '업종',
-    alignRight: false,
-    width: 130,
-  },
-  {
-    field: 'rating',
-    headerName: '평점',
-    alignRight: false,
-    width: 70,
-  },
-  {
-    field: 'review',
-    headerName: '리뷰',
-    alignRight: false,
-    width: 80,
-  },
-  {
-    field: 'isnew',
-    headerName: '신규',
-    alignRight: false,
-    width: 100,
-  },
-  {
-    field: 'location',
-    headerName: '위치',
-    alignRight: false,
-    width: 280,
-  },
-];
-const Rows = [
+const initialRows = [
   {
     id: 1,
     company: '광화문진뚝해',
@@ -146,7 +101,7 @@ const Rows = [
     sector: '해장국',
     rating: '4.7',
     review: '3',
-    isnew: 'yes',
+    isnew: true,
     location: '내수동 광화문시대 지하1층 B102호',
   },
   {
@@ -458,13 +413,7 @@ function SettingsPanel(props) {
           <MenuItem value={1000}>{Number(1000).toLocaleString()}</MenuItem>
         </Select>
       </FormControl>
-      {/* <FormControl variant="standard">
-        <InputLabel>Theme</InputLabel>
-        <Select value={activeTheme} onChange={handleThemeChange}>
-          <MenuItem value="default">Default Theme</MenuItem>
-          <MenuItem value="ant">Ant Design</MenuItem>
-        </Select>
-      </FormControl> 지우기 */}
+
       <Button size="small" variant="outlined" color="primary" onClick={handleApplyChanges}>
         <KeyboardArrowRightIcon fontSize="small" /> Apply
       </Button>
@@ -478,16 +427,7 @@ SettingsPanel.propTypes = {
   //   theme: PropTypes.oneOf(['ant', 'default']).isRequired,
   type: PropTypes.oneOf(['Market', 'Employee']).isRequired,
 };
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarColumnsButton />
-      <GridToolbarFilterButton />
-      <GridToolbarDensitySelector />
-      <GridToolbarExport />
-    </GridToolbarContainer>
-  );
-}
+
 function querySelectorByClassName() {
   const div_list = document.querySelectorAll('.MuiDataGrid-root css-k7dv9g-MuiDataGrid-root');
 
@@ -498,6 +438,98 @@ const Home = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { error, loading } = useSelector((state) => state.products);
+  const [rows, setRows] = React.useState(initialRows);
+  // 원하는 매장 삭제
+  const storeCompany = React.useCallback(
+    (id) => () => {
+      setTimeout(() => {
+        setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+      });
+    },
+    [],
+  );
+  // 진행상황 변경
+  //   const editStatus = React.useCallback(
+  //     (id) => () => {
+  //       setRows((prevRows) => prevRows.map((row) => (row.id === id ? { ...row, status: '미정' } : row)));
+  //     },
+  //     [],
+  //   );
+  const columns = React.useMemo(
+    () => [
+      {
+        field: 'company',
+        headerName: '매장이름',
+        type: 'string',
+        width: 150,
+        alignRight: false,
+      },
+      {
+        field: 'name',
+        headerName: '대표자이름',
+        type: 'string',
+        width: 80,
+        alignRight: false,
+      },
+      {
+        field: 'repnum',
+        headerName: '대표번호',
+        type: 'string',
+        width: 110,
+        alignRight: false,
+      },
+      {
+        field: 'sector',
+        headerName: '업종',
+        type: 'string',
+        width: 130,
+        alignRight: false,
+      },
+      {
+        field: 'rating',
+        headerName: '평점',
+        type: 'number',
+        width: 70,
+        alignRight: false,
+      },
+      {
+        field: 'review',
+        headerName: '리뷰',
+        type: 'number',
+        width: 80,
+        alignRight: false,
+      },
+      {
+        field: 'isnew',
+        headerName: '신규',
+        type: 'boolean',
+        width: 100,
+        alignRight: false,
+      },
+      {
+        field: 'location',
+        headerName: '위치',
+        type: 'string',
+        width: 280,
+        alignRight: false,
+      },
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 80,
+        getActions: (params) => [
+          <GridActionsCellItem icon={<AddToPhotosIcon />} label="Store" onClick={storeCompany(params.id)} />,
+          //   <GridActionsCellItem
+          //     icon={<SecurityIcon />}
+          //     label="Edit 진행상황"
+          //     onClick={editStatus(params.id)}
+          //     showInMenu
+          //   />,
+        ],
+      },
+    ],
+    [storeCompany],
+  );
   useEffect(() => {
     if (error) {
       enqueueSnackbar(error, { variant: 'error' });
@@ -619,6 +651,16 @@ const Home = () => {
       return newPaginationSettings;
     });
   };
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport utf8WithBom={true} />
+      </GridToolbarContainer>
+    );
+  }
   const StyledGridOverlay = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -713,9 +755,9 @@ const Home = () => {
             <StyledBox>
               <SettingsPanel onApply={handleApplyClick} size={size} type={type} />
               <Card maxWidth="xl">
-                <DataGridPro
+                <DataGrid
                   columns={columns}
-                  rows={Rows}
+                  rows={rows}
                   components={{
                     LoadingOverlay: LinearProgress,
                     Toolbar: CustomToolbar,
@@ -724,10 +766,9 @@ const Home = () => {
                   loading={loading}
                   checkboxSelection
                   disableSelectionOnClick
-                  querySelectorByClassName
                   rowThreshold={0}
                   initialState={{
-                    ...Rows.initialState,
+                    ...data.initialState,
                     pinnedColumns: { left: ['__check__', 'company'] },
                   }}
                   {...pagination}

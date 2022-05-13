@@ -207,14 +207,7 @@ const Login = () => {
           </Link> */}
                   </Stack>
 
-                  <LoadingButton
-                    color="primary"
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="outlined"
-                    loading={isSubmitting}
-                  >
+                  <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
                     로그인
                     {/* Login */}
                   </LoadingButton>
