@@ -80,11 +80,6 @@ const Register = () => {
     email: Yup.string().email('이메일은 유효한 이메일 형식이어야 합니다.').required('이메일은 필수 항목입니다.'),
     password: Yup.string().required('비밀번호는 필수 항목입니다.'),
     phonenumber: Yup.string().required('핸드폰 번호는 필수 항목입니다.'),
-    // firstName: Yup.string().min(1, 'Too Short!').max(50, 'Too Long!').required('First name required'),
-    // lastName: Yup.string().min(1, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
-    // email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    // password: Yup.string().required('Password is required'),
-    // phonenumber: Yup.string().required('Phone number is required'),
   });
   // register 변수
   const formik = useFormik({
