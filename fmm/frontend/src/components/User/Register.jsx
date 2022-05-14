@@ -94,7 +94,7 @@ const Register = () => {
     validationSchema: RegisterSchema,
     // register 확인될 경우 dashboard로 navigate
     onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard/home', { replace: true });
     },
   });
   // error handler 및 유저 선택적 api 변수
@@ -102,26 +102,22 @@ const Register = () => {
   const { loading, isAuthenticated, error } = useSelector((state) => state.user);
 
   const [user, setUser] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    gender: '',
     password: '',
-    cpassword: '',
+    phonenumber: '',
   });
 
-  const { name, email, gender, password, cpassword } = user;
+  const { firstName, lastName, email, password, phonenumber } = user;
 
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState('preview.png');
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (password.length < 8) {
-      enqueueSnackbar('Password length must be atleast 8 characters', { variant: 'warning' });
-      return;
-    }
-    if (password !== cpassword) {
-      enqueueSnackbar("Password Doesn't Match", { variant: 'error' });
+    if (password.length < 1) {
+      enqueueSnackbar('Password length must be at least 1 characters', { variant: 'warning' });
       return;
     }
     if (!avatar) {
@@ -130,10 +126,12 @@ const Register = () => {
     }
 
     const formData = new FormData();
-    formData.set('name', name);
+
+    formData.set('firstName', firstName);
+    formData.set('lastName', lastName);
     formData.set('email', email);
-    formData.set('gender', gender);
     formData.set('password', password);
+    formData.set('phonenumber', phonenumber);
     formData.set('avatar', avatar);
 
     dispatch(registerUser(formData));
@@ -196,7 +194,7 @@ const Register = () => {
             {/* <AuthSocial /> */}
 
             <FormikProvider value={formik}>
-              <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+              <Form autoComplete="off" noValidate onSubmit={handleRegister}>
                 <Stack spacing={3}>
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                     <TextField

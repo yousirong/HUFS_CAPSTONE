@@ -158,7 +158,7 @@ const Login = () => {
               {/* <AuthSocial /> */}
 
               <FormikProvider value={formik}>
-                <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                <Form autoComplete="off" noValidate onSubmit={handleLogin}>
                   <Stack spacing={3}>
                     <TextField
                       lang="ko"
