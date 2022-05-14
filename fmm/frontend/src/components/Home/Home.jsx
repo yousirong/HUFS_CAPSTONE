@@ -657,7 +657,7 @@ const Home = () => {
         <GridToolbarColumnsButton />
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
-        <GridToolbarExport utf8WithBom={true} />
+        <GridToolbarExport utf8withbom={true} />
       </GridToolbarContainer>
     );
   }
