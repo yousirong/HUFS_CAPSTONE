@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const userSignIn = useCallback(async () => {
     try {
-      const { data } = await axios.post(`http://localhost:3000/api/login`, {
+      const { data } = await axios.post(`http://15.165.215.193/api/login`, {
         ...login,
       })
       setUserNo(data.user_no)

@@ -1,25 +1,25 @@
-import { useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import { useState, useCallback, useEffect } from 'react'
+import axios from 'axios'
 
 const MainPage = () => {
-  const [ping, setPing] = useState(false);
+  const [ping, setPing] = useState(false)
 
   const getPing = useCallback(async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/ping`);
-      setPing(data);
+      const { data } = await axios.get(`http://15.165.215.193/api/ping`)
+      setPing(data)
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    getPing();
+    getPing()
     return () => {
-      setPing(false);
-    };
+      setPing(false)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <div className="App">
@@ -33,7 +33,7 @@ const MainPage = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage
